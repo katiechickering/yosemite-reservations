@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brandLightGreen: #dde5b6;
+  --color-brandLightestGreen: #f0ead2;
+  --color-brandGreen: #adc178;
+  --color-brandBrown: #a98467;
+  --color-brandDarkBrown: #6c584c;
+}
+
+@layer base {
+  body {
+    @apply font-serif text-brandDarkBrown
+  }
+  a, button, select {
+    @apply bg-white hover:bg-brandLightestGreen border border-brandBrown rounded shadow py-2 text-center
+  }
+  a, button {
+    @apply px-4
+  }
+  input {
+    @apply bg-white rounded border border-brandBrown ml-2 px-2
+  }
+}
+
+@layer components {
+  .backgroundLayout {
+    @apply flex flex-col w-screen h-screen p-8 bg-[url('/images/yosemiteBackground.png')] bg-cover
+  }
+  .error {
+    @apply border-red-500 border-3
+  }
+  .greenButton {
+    @apply bg-brandGreen hover:bg-brandLightGreen
+  }
+}
+
+/* Swiper Carousel CSS */
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  color: #adc178;
+  font-size: 1.5rem;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.swiper-button-next:hover::after,
+.swiper-button-prev:hover::after {
+  color: #a98467;
+}
+
+.swiper {
+  transition: height 300ms ease;
+}
