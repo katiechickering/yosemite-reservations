@@ -43,4 +43,4 @@ Copy and paste http://localhost:5173/ into your browser to view the application!
 
 ## 💭 Feedback and Contributing
 
-If you found this insightful or if you have suggestions, please start a [discussion]()!
+If you found this insightful or if you have suggestions, please start a [discussion](https://github.com/katiechickering/yosemite-reservations/discussions/1)!
