@@ -19,7 +19,7 @@ This project was built with a Node.js and Express backend and a React frontend s
 Katie Chickering - https://github.com/katiechickering
 
 
-### 🛜 Deployed Version
+## 🛜 Deployed Version
 
 [Click Here!](main.d27jn0472fbh8c.amplifyapp.com)
 
