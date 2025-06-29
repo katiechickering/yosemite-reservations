@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const RESERVATION_INSTANCE = axios.create({
-    baseURL: "http://localhost:8000/v1/yosemite_reservations"
+    baseURL: import.meta.env.VITE_API_URL
 })
 
 // Read 
