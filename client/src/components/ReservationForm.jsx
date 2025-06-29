@@ -154,7 +154,7 @@ export const ReservationForm = ({setHeaderInfo}) => {
             </div>
 
             {/* Form */}
-            <form onSubmit={handleSubmit} className="border border-brandBrown bg-brandLightestGreen p-10">
+            <form onSubmit={handleSubmit} className="border-2 border-brandBrown bg-brandLightestGreen p-10">
                 {loading.reservationInfo && <p>{loading.reservationInfo}</p>}
                 {dataErrors.reservationInfo &&
                     <p className="text-red-500 text-center">

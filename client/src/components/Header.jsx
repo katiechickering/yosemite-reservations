@@ -48,7 +48,7 @@ export const Header = ({headerInfo}) => {
     }
 
     return (
-        <div className="flex justify-between items-center w-screen bg-brandGreen h-[17vh] p-3">
+        <div className="flex justify-between items-center w-screen bg-brandGreen h-[17vh] p-3 border-2">
             <div className="flex items-center justify-between h-full">
                 <img src={yosemiteIcon} alt="yosemite-icon" className="h-full"/>
                 <h1 className="text-5xl text-white tracking-wide ml-10">{headerText}</h1>

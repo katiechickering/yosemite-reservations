@@ -47,7 +47,7 @@ export const ViewReservation = ({setHeaderInfo}) => {
         <div className="backgroundLayout items-center">
 
             {/* Reservation Details */}
-            <div className="flex flex-col items-center border border-brandBrown bg-brandLightestGreen py-5 px-10">
+            <div className="flex flex-col items-center border-2 border-brandBrown bg-brandLightestGreen py-5 px-10">
                 {loading.reservationInfo && <p>{loading.reservationInfo}</p>}
                 {errors.reservationInfo && <p className="text-red-500 text-center">{errors.reservationInfo}</p>}
                 <p className="m-5 text-3xl">{reservation.firstName} {reservation.lastName}</p>
