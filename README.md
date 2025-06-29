@@ -19,7 +19,12 @@ This project was built with a Node.js and Express backend and a React frontend s
 Katie Chickering - https://github.com/katiechickering
 
 
-## ⬇️ Installation
+### 🛜 Deployed Version
+
+[Click Here!](main.d27jn0472fbh8c.amplifyapp.com)
+
+
+## ⬇️ Local Installation
 
 Open two terminals and route to the server folder and client folder respectively.
 
@@ -36,7 +41,7 @@ npm install
 Then, create a .env file in both the server folder and client folder. Follow the instructions in the .env.example files to set up your environment variables.
 
 
-## 🚀 Usage
+## 🚀 Local Usage
 
 First, run the command below in the server terminal:
 ```bash
