@@ -43,7 +43,7 @@ First, run the command below in the server terminal:
 npm start
 ```
 
-Second, run the command below in the client terminal:
+Second, run the commands below in the client terminal:
 ```bash
 npm run build
 npm run preview
