@@ -23,7 +23,12 @@ Katie Chickering - https://github.com/katiechickering
 
 Open two terminals and route to the server folder and client folder respectively.
 
-Run the command below in both terminals:
+Run the command below in the server terminal:
+```bash
+npm install
+```
+
+Run the command below in the client terminal:
 ```bash
 npm install
 ```
@@ -33,12 +38,18 @@ Then, create a .env file in both the server folder and client folder. Follow the
 
 ## 🚀 Usage
 
-Run the command below in both the server and client terminals:
+First, run the command below in the server terminal:
 ```bash
-npm run dev
+npm start
 ```
 
-Copy and paste http://localhost:5173/ into your browser to view the application!
+Second, run the command below in the client terminal:
+```bash
+npm run build
+npm run preview
+```
+
+Copy and paste http://localhost:4173/ into your browser to view the application!
 
 
 ## 💭 Feedback and Contributing
