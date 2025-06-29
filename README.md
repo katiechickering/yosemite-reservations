@@ -11,7 +11,7 @@
 
 ## ℹ️ Overview
 
-This project was built with a Node.js and Express backend and a React frontend styled with Tailwind CSS. It uses a single MongoDB collection and integrates data from the National Park Service public API. The reservation feature provides full CRUD functionality. The goal of this project is to showcase my expertise in the MERN stack. I also created the Park Information tab to display my ability in working with external APIs and modern frontend styling.
+This project was built with a Node.js and Express backend and a React frontend styled with Tailwind CSS. Created with an MVC structure, this app uses MongoDB for the model, an Express API as the controller, and React for the view. It also integrates data from the National Park Service public API. The reservation feature provides full CRUD functionality. I created this app to showcase my expertise in the MERN stack, as well as my love for the outdoors! I also coded the Park Information tab to display my ability in working with external APIs and modern frontend styling.
 
 
 ## ✍️ Authors
