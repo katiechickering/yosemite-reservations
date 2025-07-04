@@ -17,7 +17,7 @@ function App() {
     <>
       <Header headerInfo={headerInfo} />
       <Routes>
-        <Route path="/" element={<Home />}></Route>
+        <Route path="/" element={<Home />}/>
         <Route path="reservation/add" element={<ReservationForm />}/>
         <Route path="reservation/details/:id" element={<ViewReservation setHeaderInfo={setHeaderInfo}/>}/>
         <Route path="reservation/update/:id" element={<ReservationForm setHeaderInfo={setHeaderInfo}/>}/>
