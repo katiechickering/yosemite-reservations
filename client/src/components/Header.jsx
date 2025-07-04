@@ -13,7 +13,7 @@ export const Header = ({headerInfo}) => {
 
     if (pathname == "/") { // Homepage Header
         headerText = "Yosemite Reservations"
-        route1 = "reservation/add"
+        route1 = "/reservation/add"
         linkText1 = "Create a Reservation"
         route2 = "/parkinfo"
         linkText2 = "Park Information"
