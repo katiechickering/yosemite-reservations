@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import {getReservationById, createReservation, updateReservation} from "../services/ReservationService"
 import { toast } from "react-toastify"
+import dayjs from "dayjs"
 
 const DEFAULT_FORM_VALUES = {
     firstName: "",
@@ -14,6 +15,12 @@ const DEFAULT_FORM_VALUES = {
     hasRV: false
 }
 
+const CAMPSITE_ENUM = [
+    "upperPines", "lowerPines", "northPines", "wawona", "hodgdonMeadow",
+    "tuolumneMeadows", "bridalveilCreek", "craneFlat", "tamarackFlat",
+    "whiteWolf", "yosemiteCreek", "porcupineFlat", "tuolumneMeadows", "camp4"
+]
+
 export const ReservationForm = ({setHeaderInfo}) => {
 
     const [formData, setFormData] = useState(DEFAULT_FORM_VALUES)
@@ -22,12 +29,6 @@ export const ReservationForm = ({setHeaderInfo}) => {
     const [dataErrors, setDataErrors] = useState({})
     const navigate = useNavigate()
     const {id} = useParams()
-
-    // Set today's date and 1 year from now for date validations
-    let today = new Date()
-    today.setHours(0, 0, 0, 0)
-    let oneYearFromToday = new Date(today)
-    oneYearFromToday.setFullYear(today.getFullYear() + 1)
 
     // Load page as the create form or edit form based on the url
     useEffect(() => {
@@ -40,16 +41,16 @@ export const ReservationForm = ({setHeaderInfo}) => {
             })
             .catch(error => {
                 console.log("getReservationById error:", error)
-                setDataErrors(prev => ({...prev, reservationInfo: "Unable to load reservation details."}))
+                setDataErrors(prev => ({...prev, getRequest: "Unable to load reservation details."}))
                 toast.error("Unable to load reservation details.")
             })
-            .finally(() => setLoading(prev => ({...prev, reservationInfo: false})))
+            .finally(() => setLoading(prev => ({...prev, reservation: false})))
         } else {
             setFormData(DEFAULT_FORM_VALUES)
-            setLoading(prev => ({...prev, reservationInfo: false}))
+            setLoading(prev => ({...prev, reservation: false}))
         }
     }, [id])
-
+    
     // Dynamically set form data
     const handleChange = e => {
         const {name, value} = e.target
@@ -65,6 +66,10 @@ export const ReservationForm = ({setHeaderInfo}) => {
         validateData(name, value)
     }
 
+    // Set today's date and 1 year from now for date validations
+    const today = dayjs().startOf('day')
+    const oneYearFromToday = today.add(1, 'year')
+    
     // Validate form inputs dynamically
     const validateData = (name, value) => {
         const validations = {
@@ -78,11 +83,14 @@ export const ReservationForm = ({setHeaderInfo}) => {
                 : value.length > 30 ? "Last name must be no more than 30 characters."
                 : false
             ),
-            campsite: () => false,
+            campsite: value => (
+                !CAMPSITE_ENUM.includes(value) ? "Please choose a campsite from the select list."
+                : false
+            ),
             date: value => {
-                value = new Date(value)
-                return (value < today ? "Your reservation date must not be in the past."
-                : value > oneYearFromToday ? "Your reservation cannot be more than 1 year in advance."
+                const userDate = dayjs(value)
+                return (userDate.isBefore(today) ? "Your reservation date must not be in the past."
+                : userDate.isAfter(oneYearFromToday) ? "Your reservation cannot be more than 1 year in advance."
                 : false)
             },
             lengthOfStay: value => (
@@ -115,11 +123,11 @@ export const ReservationForm = ({setHeaderInfo}) => {
     const handleSubmit = e => {
         e.preventDefault()
         if (!isReadyToSubmit()){
-            toast.error("Please make corrections to the form.")
+            return toast.error("Please make corrections to the form.")
         }
         else if (id) {
             updateReservation(formData)
-            .then(res => {
+            .then(() => {
                 toast.success("Reservation updated successfully!")
                 navigate(`/reservation/details/${id}`)
             })
@@ -155,10 +163,10 @@ export const ReservationForm = ({setHeaderInfo}) => {
 
             {/* Form */}
             <form onSubmit={handleSubmit} className="border-2 border-brandBrown bg-brandLightestGreen p-10">
-                {loading.reservationInfo && <p>{loading.reservationInfo}</p>}
-                {dataErrors.reservationInfo &&
+                {loading.reservation && <p>{loading.reservation}</p>}
+                {dataErrors.getRequest &&
                     <p className="text-red-500 text-center">
-                        {dataErrors.reservationInfo}
+                        {dataErrors.getRequest}
                     </p>
                 }
 

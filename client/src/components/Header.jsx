@@ -50,7 +50,9 @@ export const Header = ({headerInfo}) => {
     return (
         <div className="flex justify-between items-center w-screen bg-brandGreen h-[17vh] p-3 border-2">
             <div className="flex items-center justify-between h-full">
-                <img src={yosemiteIcon} alt="yosemite-icon" className="h-full"/>
+                <Link to={"/"} className="h-full bg-transparent border-none p-0 shadow-none">
+                    <img src={yosemiteIcon} alt="yosemite-icon" className="h-full"/>
+                </Link>
                 <h1 className="text-5xl text-white tracking-wide ml-10">{headerText}</h1>
             </div>
             <div className="flex flex-col h-full justify-evenly items-center">
