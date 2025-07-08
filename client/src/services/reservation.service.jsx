@@ -1,7 +1,8 @@
 import axios from "axios"
 
 const RESERVATION_INSTANCE = axios.create({
-    baseURL: import.meta.env.VITE_API_URL
+    baseURL: import.meta.env.VITE_API_URL + "/reservation",
+    withCredentials: true
 })
 
 // Read 

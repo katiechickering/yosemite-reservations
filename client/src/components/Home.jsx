@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react"
-import { getAllReservations } from "../services/ReservationService"
-import { Link } from "react-router-dom"
+import { getAllReservations } from "../services/reservation.service"
+import { Link, useNavigate } from "react-router-dom"
 import { formatDate, formatString } from "../utils/FormatFunctions"
 import { toast } from "react-toastify"
+import { useLogin } from '../context/UserContext'
 
 export const Home = () => {
 
@@ -11,20 +12,27 @@ export const Home = () => {
     const [campsiteSearch, setCampsiteSearch] = useState("")
     const [loading, setLoading] = useState({reservationInfo: "Loading reservations..."})
     const [errors, setErrors] = useState({reservationInfo: false})
+    const navigate = useNavigate()
+    const { isLoggedIn } = useLogin()
 
     // Store all reservations in state
     useEffect(() => {
-        getAllReservations()
-        .then((res) => {
-            setAllReservations(res);
-            setFilteredReservations(res);
-        })
-        .catch(error => {
-            console.log("getAllReservations error:", error)
-            setErrors(prev => ({...prev, reservationInfo: "Unable to load reservations."}))
-            toast.error("Unable to load reservations.")
-        })
-        .finally(() => setLoading(prev => ({...prev, reservationInfo: false})))
+        if( !isLoggedIn ){
+            navigate('/login')
+        }
+        else {
+            getAllReservations()
+            .then((res) => {
+                setAllReservations(res);
+                setFilteredReservations(res);
+            })
+            .catch(error => {
+                console.log("getAllReservations error:", error)
+                setErrors(prev => ({...prev, reservationInfo: "Unable to load reservations."}))
+                toast.error("Unable to load reservations.")
+            })
+            .finally(() => setLoading(prev => ({...prev, reservationInfo: false})))
+        }
     }, [])
 
     // Sort by campsite or view all
