@@ -17,9 +17,6 @@ app.use( cors( { origin: process.env.CORS_ORIGIN, credentials: true } ) )
 app.use(express.json())
 app.use(cookieParser())
 
-app.get('/health', (req, res) => {
-    res.json({ status: 'ok' });
-});
 app.use("/v1/yosemiteReservations/reservation", reservationRouter)
 app.use("/v1/yosemiteReservations/user", userRouter)
 
