@@ -7,11 +7,7 @@ import { toast } from "react-toastify"
 export const LoginForm = () => {
     const navigate = useNavigate()
     const { login:loginUser } = useLogin()
-    const [ error, setError ] = useState('')
-
-    useEffect(() => {
-        if (error) toast.error(error)
-    }, [error])
+    const [ dataErrors, setDataErrors ] = useState({})
 
     const handleSubmit = e => {
         e.preventDefault()
@@ -22,7 +18,11 @@ export const LoginForm = () => {
                 toast.success("Login sussessful!")
                 navigate('/')  
             } )
-            .catch( error => setError(error))
+            .catch( error => {
+                console.log("login error:", error)
+                setDataErrors(prev => ({...prev, loginRequest: "Unable to login."}))
+                toast.error("Unable to login.")
+            })
     }
 
     return(
@@ -58,7 +58,7 @@ export const LoginForm = () => {
                         />
                 </div>
 
-                {error && <p className="text-red-500 text-center mb-5">{error}</p>}
+                {dataErrors.loginRequest && <p className="text-red-500 text-center mb-5">{dataErrors.loginRequest}</p>}
                 <div className="flex justify-center w-full">
                     <button type="submit" className="bg-brandGreen hover:bg-brandBrown">Login</button>
                 </div>
