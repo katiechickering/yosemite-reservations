@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import {getReservationById, createReservation, updateReservation} from "../services/ReservationService"
+import {getReservationById, createReservation, updateReservation} from "../services/reservation.service"
 import { toast } from "react-toastify"
 import dayjs from "dayjs"
+import { useLogin } from '../context/UserContext'
+import { getProfile } from "../services/user.service"
 
 const DEFAULT_FORM_VALUES = {
     firstName: "",
@@ -29,10 +31,14 @@ export const ReservationForm = ({setHeaderInfo}) => {
     const [dataErrors, setDataErrors] = useState({})
     const navigate = useNavigate()
     const {id} = useParams()
+    const { isLoggedIn } = useLogin()
 
     // Load page as the create form or edit form based on the url
-    useEffect(() => {
-        if (id) {
+    useEffect( () => {
+        if( !isLoggedIn ){
+            navigate('/login')
+        }
+        else if (id) {
             getReservationById(id)
             .then(res => {
                 res.date = res.date.slice(0, 10)
@@ -45,7 +51,8 @@ export const ReservationForm = ({setHeaderInfo}) => {
                 toast.error("Unable to load reservation details.")
             })
             .finally(() => setLoading(prev => ({...prev, reservation: false})))
-        } else {
+        }
+        else {
             setFormData(DEFAULT_FORM_VALUES)
             setLoading(prev => ({...prev, reservation: false}))
         }
@@ -162,7 +169,7 @@ export const ReservationForm = ({setHeaderInfo}) => {
             </div>
 
             {/* Form */}
-            <form onSubmit={handleSubmit} className="border-2 border-brandBrown bg-brandLightestGreen p-10">
+            <form onSubmit={handleSubmit} className="border-2 border-brandBrown bg-brandLightestGreen p-10 rounded">
                 {loading.reservation && <p>{loading.reservation}</p>}
                 {dataErrors.getRequest &&
                     <p className="text-red-500 text-center">
