@@ -39,12 +39,13 @@ export const LoginForm = () => {
                 <p className="text-center text-4xl mb-8">Login</p>
 
                 <div className="mb-5">
-                    <label htmlFor="usertName">User Name:</label>
+                    <label htmlFor="userName">User Name:</label>
                         <input
                             type="text"
                             name="userName"
                             id="userName"
                             required
+                            autocomplete="username"
                         />
                 </div>
 
@@ -55,6 +56,7 @@ export const LoginForm = () => {
                             name="password"
                             id="password"
                             required
+                            autocomplete="current-password"
                         />
                 </div>
 
