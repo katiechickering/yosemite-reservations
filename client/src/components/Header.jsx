@@ -1,8 +1,13 @@
 import {Link, useLocation} from 'react-router-dom'
 import yosemiteIcon from '../assets/yosemiteIcon.png'
+import { useLogin } from '../context/UserContext'
+import { logout } from '../services/user.service'
+import { useNavigate } from 'react-router-dom'
+import { toast } from "react-toastify"
 
 export const Header = ({headerInfo}) => {
-
+    const navigate = useNavigate()
+    const { isLoggedIn, logout:userLogout } = useLogin()
     const {pathname} = useLocation()
 
     let headerText
@@ -39,26 +44,50 @@ export const Header = ({headerInfo}) => {
         route2 = "/reservation/add"
         linkText2 = "Create a Reservation"
     }
-    else {
+    else if (pathname.startsWith("/reservation/details")){
         headerText = `${headerInfo.firstName}'s Reservation Details` // Reservation Details Header
         route1 = "/"
         linkText1 = "View All Reservations"
         route2 = "/parkinfo"
         linkText2 = "Park Information"
     }
+    else {
+        headerText = "Yosemite Reservations"
+    }
+
+    // Logout button
+    const handleLogout = async () => {
+        try{
+            await logout()
+            userLogout()
+            toast.success("Logout successful!")
+            navigate('/login')
+        } catch( error ){ console.error('Logout Failed:', error) }
+    }
 
     return (
         <div className="flex justify-between items-center w-screen bg-brandGreen h-[17vh] p-3 border-2">
+
             <div className="flex items-center justify-between h-full">
                 <Link to={"/"} className="h-full bg-transparent border-none p-0 shadow-none">
                     <img src={yosemiteIcon} alt="yosemite-icon" className="h-full"/>
                 </Link>
                 <h1 className="text-5xl text-white tracking-wide ml-10">{headerText}</h1>
             </div>
-            <div className="flex flex-col h-full justify-evenly items-center">
-                <Link to={route1} className="w-full">{linkText1}</Link>
-                <Link to={route2} className="w-full">{linkText2}</Link>
-            </div>
+            {
+                isLoggedIn ?
+                    <div className="flex h-full justify-between items-center">
+                        <Link to={route1} className="mr-5">{linkText1}</Link>
+                        <Link to={route2} className="mr-5">{linkText2}</Link>
+                        <button onClick={handleLogout}>Logout</button>
+                    </div>
+                :
+                    <div className="flex h-full justify-between items-center">
+                        <Link to={'/login'} className="mr-5">Login</Link>
+                        <Link to={'/register'}>Register</Link>
+                    </div>
+            }
+
         </div>
     )
 }

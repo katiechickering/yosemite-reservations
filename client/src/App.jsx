@@ -8,6 +8,8 @@ import { useState } from 'react'
 import { ParkInformation } from './components/ParkInformation'
 import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
+import { LoginForm } from "./components/LoginForm"
+import { RegistrationForm } from "./components/RegistrationForm"
 
 function App() {
 
@@ -17,6 +19,8 @@ function App() {
     <>
       <Header headerInfo={headerInfo} />
       <Routes>
+        <Route path='/register' element={<RegistrationForm />} />
+        <Route path="/login" element={<LoginForm />} />
         <Route path="/" element={<Home />}/>
         <Route path="/reservation/add" element={<ReservationForm />}/>
         <Route path="/reservation/details/:id" element={<ViewReservation setHeaderInfo={setHeaderInfo}/>}/>
