@@ -62,7 +62,10 @@ export const Header = ({headerInfo}) => {
             userLogout()
             toast.success("Logout successful!")
             navigate('/login')
-        } catch( error ){ console.error('Logout Failed:', error) }
+        } catch( error ){
+            console.error('Logout Failed:', error)
+            toast.error("Unable to logout.")
+        }
     }
 
     return (

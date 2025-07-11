@@ -11,11 +11,13 @@ const DEFAULT_FORM_VALUES = {
 }
 
 export const RegistrationForm = () => {
-    const navigate = useNavigate()
-    const { login } = useLogin()
-    const [ dataErrors, setDataErrors ] = useState({})
+
+    const [ apiErrors, setApiErrors ] = useState({})
     const [formData, setFormData] = useState(DEFAULT_FORM_VALUES)
     const [formErrors, setFormErrors] = useState({})
+
+    const navigate = useNavigate()
+    const { login } = useLogin()
 
     // Dynamically set form data
     const handleChange = e => {
@@ -64,7 +66,7 @@ export const RegistrationForm = () => {
             return await checkUserName(userName)
         } catch (error) {
             console.log("checkUserName error:", error)
-            setDataErrors(prev => ({...prev, checkUserNameRequest: "Unable to validate user name."}))
+            setApiErrors(prev => ({...prev, checkUserName: "Unable to validate user name."}))
             toast.error("Unable to validate user name.")
             return true
         }
@@ -92,8 +94,8 @@ export const RegistrationForm = () => {
                     navigate('/') 
                 })
                 .catch( error => {
-                    console.log("registerAccount error:", error)
-                    setDataErrors(prev => ({...prev, createRequest: "Unable to create account."}))
+                    console.log("register error:", error)
+                    setApiErrors(prev => ({...prev, register: "Unable to create account."}))
                     toast.error("Unable to create account.")
                 }
             )
@@ -115,7 +117,7 @@ export const RegistrationForm = () => {
                             name="userName"
                             id="userName"
                             required
-                            autocomplete="username"
+                            autoComplete="username"
                         />
                 </div>
 
@@ -129,7 +131,7 @@ export const RegistrationForm = () => {
                             name="password"
                             id="password"
                             required
-                            autocomplete="new-password"
+                            autoComplete="new-password"
                             className={formErrors.confirmPassword ? "error" : ""}
                         />
                 </div>
@@ -148,14 +150,14 @@ export const RegistrationForm = () => {
                     />
                 </div>
 
-                {dataErrors.createRequest &&
+                {apiErrors.register &&
                     <p className="text-red-500 text-center">
-                        {dataErrors.createRequest}
+                        {apiErrors.register}
                     </p>
                 }
-                {dataErrors.checkUserNameRequest &&
+                {apiErrors.checkUserName &&
                     <p className="text-red-500 text-center">
-                        {dataErrors.checkUserNameRequest}
+                        {apiErrors.checkUserName}
                     </p>
                 }
 

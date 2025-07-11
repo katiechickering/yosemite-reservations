@@ -10,8 +10,9 @@ export const Home = () => {
     const [allReservations, setAllReservations] = useState([])
     const [filteredReservations, setFilteredReservations] = useState([])
     const [campsiteSearch, setCampsiteSearch] = useState("")
-    const [loading, setLoading] = useState({reservationInfo: "Loading reservations..."})
-    const [errors, setErrors] = useState({reservationInfo: false})
+    const [loading, setLoading] = useState({getAllReservations: "Loading reservations..."})
+    const [apiErrors, setApiErrors] = useState({})
+
     const navigate = useNavigate()
     const { isLoggedIn } = useLogin()
 
@@ -22,16 +23,16 @@ export const Home = () => {
         }
         else {
             getAllReservations()
-            .then((res) => {
-                setAllReservations(res);
-                setFilteredReservations(res);
-            })
-            .catch(error => {
-                console.log("getAllReservations error:", error)
-                setErrors(prev => ({...prev, reservationInfo: "Unable to load reservations."}))
-                toast.error("Unable to load reservations.")
-            })
-            .finally(() => setLoading(prev => ({...prev, reservationInfo: false})))
+                .then((res) => {
+                    setAllReservations(res);
+                    setFilteredReservations(res);
+                })
+                .catch(error => {
+                    console.log("getAllReservations error:", error)
+                    setApiErrors(prev => ({...prev, getAllReservations: "Unable to load reservations."}))
+                    toast.error("Unable to load reservations.")
+                })
+                .finally(() => setLoading(prev => ({...prev, getAllReservations: false})))
         }
     }, [])
 
@@ -59,7 +60,7 @@ export const Home = () => {
     return (
         <div className="backgroundLayout">
 
-            {/* Search by campsite form */}
+            {/* Search by campsite */}
             <div className="flex items-center">
                 <label htmlFor="campsite" className="mr-4">Search By Campsite: </label>
                 <select 
@@ -91,12 +92,9 @@ export const Home = () => {
 
             {/* Reservations */}
             <div className="flex flex-wrap">
-                {loading.reservationInfo ? (
-                    <p>{loading.reservationInfo}</p>
-                ) : errors.reservationInfo ? (
-                    <p className="text-red-500 text-center">{errors.reservationInfo}</p>
-                ) : (
-                    filteredReservations.map(({firstName, lastName, campsite, date, _id}, index)=> (
+                {loading.getAllReservations && <p className="text-center">{loading.getAllReservations}</p>}
+                {apiErrors.getAllReservations && <p className="text-red-500 text-center">{apiErrors.getAllReservations}</p>}
+                    {filteredReservations?.map(({firstName, lastName, campsite, date, _id}, index)=> (
                         <div className="flex flex-col w-[200px] h-[200px] m-6 p-5 border rounded bg-brandLightestGreen
                             border-brandBrown items-center justify-between" key={index}>
                             <p>{firstName} {lastName}</p>
@@ -109,10 +107,8 @@ export const Home = () => {
                                 View Reservation
                             </Link>
                         </div>
-                    ))
-                )}
+                    ))}
             </div>
-            
         </div>
     )
 }

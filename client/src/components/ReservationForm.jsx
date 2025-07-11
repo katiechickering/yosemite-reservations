@@ -4,7 +4,6 @@ import {getReservationById, createReservation, updateReservation} from "../servi
 import { toast } from "react-toastify"
 import dayjs from "dayjs"
 import { useLogin } from '../context/UserContext'
-import { getProfile } from "../services/user.service"
 
 const DEFAULT_FORM_VALUES = {
     firstName: "",
@@ -27,8 +26,9 @@ export const ReservationForm = ({setHeaderInfo}) => {
 
     const [formData, setFormData] = useState(DEFAULT_FORM_VALUES)
     const [formErrors, setFormErrors] = useState({})
-    const [loading, setLoading] = useState({reservationInfo: "Loading reservation details..."})
-    const [dataErrors, setDataErrors] = useState({})
+    const [loading, setLoading] = useState({getReservationById: "Loading reservation details..."})
+    const [apiErrors, setApiErrors] = useState({})
+
     const navigate = useNavigate()
     const {id} = useParams()
     const { isLoggedIn } = useLogin()
@@ -47,14 +47,14 @@ export const ReservationForm = ({setHeaderInfo}) => {
             })
             .catch(error => {
                 console.log("getReservationById error:", error)
-                setDataErrors(prev => ({...prev, getRequest: "Unable to load reservation details."}))
+                setApiErrors(prev => ({...prev, getReservationById: "Unable to load reservation details."}))
                 toast.error("Unable to load reservation details.")
             })
-            .finally(() => setLoading(prev => ({...prev, reservation: false})))
+            .finally(() => setLoading(prev => ({...prev, getReservationById: false})))
         }
         else {
             setFormData(DEFAULT_FORM_VALUES)
-            setLoading(prev => ({...prev, reservation: false}))
+            setLoading(prev => ({...prev, getReservationById: false}))
         }
     }, [id])
     
@@ -140,7 +140,7 @@ export const ReservationForm = ({setHeaderInfo}) => {
             })
             .catch((error) => {
                 console.log("updateReservation error:", error)
-                setDataErrors(prev => ({...prev, updateRequest: "Unable to update reservation."}))
+                setApiErrors(prev => ({...prev, updateReservation: "Unable to update reservation."}))
                 toast.error("Unable to update reservation.")
             })
         }
@@ -152,7 +152,7 @@ export const ReservationForm = ({setHeaderInfo}) => {
             })
             .catch((error) => {
                 console.log("createReservation error:", error)
-                setDataErrors(prev => ({...prev, createRequest: "Unable to create reservation."}))
+                setApiErrors(prev => ({...prev, createReservation: "Unable to create reservation."}))
                 toast.error("Unable to create reservation.")
             })
         }
@@ -170,10 +170,10 @@ export const ReservationForm = ({setHeaderInfo}) => {
 
             {/* Form */}
             <form onSubmit={handleSubmit} className="border-2 border-brandBrown bg-brandLightestGreen p-10 rounded">
-                {loading.reservation && <p>{loading.reservation}</p>}
-                {dataErrors.getRequest &&
+                {loading.getReservationById && <p className="text-center">{loading.getReservationById}</p>}
+                {apiErrors.getReservationById &&
                     <p className="text-red-500 text-center">
-                        {dataErrors.getRequest}
+                        {apiErrors.getReservationById}
                     </p>
                 }
 
@@ -309,14 +309,14 @@ export const ReservationForm = ({setHeaderInfo}) => {
                     </button>
                 </div>
 
-                {dataErrors.createRequest &&
+                {apiErrors.createReservation &&
                     <p className="text-red-500 text-center">
-                        {dataErrors.createRequest}
+                        {apiErrors.createReservation}
                     </p>
                 }
-                {dataErrors.updateRequest &&
+                {apiErrors.updateReservation &&
                     <p className="text-red-500 text-center">
-                        {dataErrors.updateRequest}
+                        {apiErrors.updateReservation}
                     </p>
                 }
             </form>

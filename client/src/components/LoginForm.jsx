@@ -7,7 +7,7 @@ import { toast } from "react-toastify"
 export const LoginForm = () => {
     const navigate = useNavigate()
     const { login:loginUser } = useLogin()
-    const [ dataErrors, setDataErrors ] = useState({})
+    const [ apiErrors, setApiErrors ] = useState({})
 
     const handleSubmit = e => {
         e.preventDefault()
@@ -15,12 +15,12 @@ export const LoginForm = () => {
         login( { userName: userName.value, password: password.value } )
             .then( ()=> {
                 loginUser()
-                toast.success("Login sussessful!")
+                toast.success("Login successful!")
                 navigate('/')  
             } )
             .catch( error => {
                 console.log("login error:", error)
-                setDataErrors(prev => ({...prev, loginRequest: "Unable to login."}))
+                setApiErrors(prev => ({...prev, loginRequest: "Unable to login."}))
                 toast.error("Unable to login.")
             })
     }
@@ -45,7 +45,7 @@ export const LoginForm = () => {
                             name="userName"
                             id="userName"
                             required
-                            autocomplete="username"
+                            autoComplete="username"
                         />
                 </div>
 
@@ -56,11 +56,11 @@ export const LoginForm = () => {
                             name="password"
                             id="password"
                             required
-                            autocomplete="current-password"
+                            autoComplete="current-password"
                         />
                 </div>
 
-                {dataErrors.loginRequest && <p className="text-red-500 text-center mb-5">{dataErrors.loginRequest}</p>}
+                {apiErrors.loginRequest && <p className="text-red-500 text-center mb-5">{apiErrors.loginRequest}</p>}
                 <div className="flex justify-center w-full">
                     <button type="submit" className="bg-brandGreen hover:bg-brandBrown">Login</button>
                 </div>

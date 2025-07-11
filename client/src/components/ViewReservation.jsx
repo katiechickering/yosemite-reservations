@@ -9,9 +9,10 @@ import { getProfile } from "../services/user.service"
 export const ViewReservation = ({setHeaderInfo}) => {
 
     const [reservation, setReservation] = useState({})
-    const [loading, setLoading] = useState({reservationInfo: "Loading reservation details..."})
-    const [errors, setErrors] = useState({})
+    const [loading, setLoading] = useState({getReservationById: "Loading reservation details..."})
+    const [apiErrors, setApiErrors] = useState({})
     const [currentUser, setCurrentUser] = useState({})
+
     const {id} = useParams()
     const navigate = useNavigate()
     const { isLoggedIn } = useLogin()
@@ -26,7 +27,7 @@ export const ViewReservation = ({setHeaderInfo}) => {
             .then(res => setCurrentUser(res))
             .catch(error => {
                 console.log("getProfile error:", error)
-                setErrors(prev => ({...prev, getProfileRequest: "Unable to load current user."}))
+                setApiErrors(prev => ({...prev, getProfile: "Unable to load current user."}))
                 toast.error("Unable to load current user.")
             })
             getReservationById(id)
@@ -38,10 +39,10 @@ export const ViewReservation = ({setHeaderInfo}) => {
             })
             .catch(error => {
                 console.log("getReservationById error:", error)
-                setErrors(prev => ({...prev, getReservationRequest: "Unable to load reservation details."}))
+                setApiErrors(prev => ({...prev, getReservationById: "Unable to load reservation details."}))
                 toast.error("Unable to load reservation details.")
             })
-            .finally(() => setLoading(prev => ({...prev, reservation: false})))
+            .finally(() => setLoading(prev => ({...prev, getReservationById: false})))
         }
     }, [id])
 
@@ -54,7 +55,7 @@ export const ViewReservation = ({setHeaderInfo}) => {
         })
         .catch(error => {
             console.log("deleteReservationById error:", error)
-            setErrors(prev => ({...prev, deleteRequest: "Unable to delete reservation."}))
+            setApiErrors(prev => ({...prev, deleteReservationById: "Unable to delete reservation."}))
             toast.error("Unable to delete reservation.")
         })
     }
@@ -64,9 +65,9 @@ export const ViewReservation = ({setHeaderInfo}) => {
 
             {/* Reservation Details */}
             <div className="flex flex-col items-center border-2 border-brandBrown bg-brandLightestGreen py-5 px-10 rounded">
-                {loading.reservation && <p>{loading.reservation}</p>}
-                {errors.getReservationREquest && <p className="text-red-500 text-center">{errors.getReservationREquest}</p>}
-                {errors.getProfileRequest && <p className="text-red-500 text-center">{errors.getProfileRequest}</p>}
+                {loading.getReservationById && <p className="text-center">{loading.getReservationById}</p>}
+                {apiErrors.getReservationById && <p className="text-red-500 text-center">{apiErrors.getReservationById}</p>}
+                {apiErrors.getProfile && <p className="text-red-500 text-center">{apiErrors.getProfile}</p>}
                 <p className="text-3xl">{reservation.firstName} {reservation.lastName}</p>
                 <p className="mb-5">Username: @{reservation.user?.userName}</p>
                 <p className="m-3">{reservation.campsite} Campsite</p>
@@ -96,7 +97,7 @@ export const ViewReservation = ({setHeaderInfo}) => {
                         <Link to={`/reservation/update/${id}`} className="bg-brandGreen hover:bg-brandBrown">Update</Link>
                     </div>
                 }
-                {errors.deleteRequest && <p className="text-red-500 text-center">{errors.deleteRequest}</p>}
+                {apiErrors.deleteReservationById && <p className="text-red-500 text-center">{apiErrors.deleteReservationById}</p>}
 
             </div>
 

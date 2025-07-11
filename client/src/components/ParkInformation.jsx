@@ -14,12 +14,13 @@ export const ParkInformation = () => {
 
     const [parkData, setParkData] = useState({})
     const [loading, setLoading] = useState({
-        parkInfo: "Loading park information...",
-        thingsToDo: "Loading things to do...",
-        newsReleases: "Loading news releases...",
-        campsites: "Loading campsites..."
+        getParkInfo: "Loading park information...",
+        get10ThingsToDo: "Loading things to do...",
+        get10NewsReleases: "Loading news releases...",
+        getCampstites: "Loading campsites..."
     })
-    const [errors, setErrors] = useState({parkInfo: false, thingsToDo: false, newsReleases: false, campsites: false})
+    const [apiErrors, setApiErrors] = useState({})
+
     const navigate = useNavigate()
     const { isLoggedIn } = useLogin()
 
@@ -35,11 +36,10 @@ export const ParkInformation = () => {
             })
             .catch(error => {
                 console.log("getParkInfo error:", error)
-                setParkData(prev => ({...prev, parkInfo: []}))
-                setErrors(prev => ({ ...prev, parkInfo: "NPS API failed to load park information. Please try again later." }))
+                setApiErrors(prev => ({ ...prev, getParkInfo: "NPS API failed to load park information. Please try again later." }))
                 toast.error("NPS API failed to load park information. Please try again later.")
             })
-            .finally(() => setLoading(prev => ({...prev, parkInfo: false})))
+            .finally(() => setLoading(prev => ({...prev, getParkInfo: false})))
 
             get10ThingsToDo()
             .then(res => {
@@ -47,11 +47,10 @@ export const ParkInformation = () => {
             })
             .catch(error => {
                 console.log("get10ThingsToDo error:", error)
-                setParkData(prev => ({...prev, thingsToDo: []}))
-                setErrors(prev => ({ ...prev, thingsToDo: "NPS API failed to load things to do information. Please try again later." }))
+                setApiErrors(prev => ({ ...prev, get10ThingsToDo: "NPS API failed to load things to do information. Please try again later." }))
                 toast.error("NPS API failed to load things to do. Please try again later.")
             })
-            .finally(() => setLoading(prev => ({...prev, thingsToDo: false})))
+            .finally(() => setLoading(prev => ({...prev, get10ThingsToDo: false})))
 
             get10NewsReleases()
             .then(res => {
@@ -59,11 +58,10 @@ export const ParkInformation = () => {
             })
             .catch(error => {
                 console.log("get10NewsReleases error:", error)
-                setParkData(prev => ({...prev, newsReleases: []}))
-                setErrors(prev => ({ ...prev, newsReleases: true }))
+                setApiErrors(prev => ({ ...prev, get10NewsReleases: true }))
                 toast.error("NPS API failed to load news releases. Please try again later.")
             })
-            .finally(() => setLoading(prev => ({...prev, newsReleases: false})))
+            .finally(() => setLoading(prev => ({...prev, get10NewsReleases: false})))
 
             getCampsites()
             .then(res => {
@@ -71,11 +69,10 @@ export const ParkInformation = () => {
             })
             .catch(error => {
                 console.log("getCampsites error:", error)
-                setParkData(prev => ({...prev, campsites: []}))
-                setErrors(prev => ({ ...prev, campsites: "NPS API failed to load campsite information. Please try again later." }))
+                setApiErrors(prev => ({ ...prev, getCampsites: "NPS API failed to load campsite information. Please try again later." }))
                 toast.error("NPS API failed to load campsites. Please try again later.")
             })
-            .finally(() => setLoading(prev => ({...prev, campsites: false})))
+            .finally(() => setLoading(prev => ({...prev, getCampstites: false})))
         }
     }, [])
 
@@ -84,11 +81,9 @@ export const ParkInformation = () => {
 
             {/* Park information section*/}
             <div className="border-2 border-brandDarkBrown w-full rounded-xl p-4 bg-white flex flex-col">
-                {loading.parkInfo ? (
-                    <p>{loading.parkInfo}</p>
-                ) : errors.parkInfo ? (
-                    <p className="text-red-500 text-center">{errors.parkInfo}</p>
-                ) : (
+                {loading.getParkInfo && <p className="text-center">{loading.getParkInfo}</p>}
+                {apiErrors.getParkInfo && <p className="text-red-500 text-center">{apiErrors.getParkInfo}</p>}
+                {parkData.parkInfo &&
                     <div className="flex flex-col items-center">
                         <p className="text-3xl font-bold mb-4">{parkData.parkInfo.fullName}</p>
                         <p className="mb-4">{parkData.parkInfo.description}</p>
@@ -124,31 +119,29 @@ export const ParkInformation = () => {
                                 className="w-full"
                             >
                                 {parkData.parkInfo.images.map((img, i) => (
-                                <SwiperSlide key={i}>
-                                    <div className="flex justify-center">
-                                        <img
-                                        src={img.url}
-                                        alt={img.altText}
-                                        className="h-[200px] object-cover rounded"
-                                        />
-                                    </div>
-                                </SwiperSlide>
+                                    <SwiperSlide key={i}>
+                                        <div className="flex justify-center">
+                                            <img
+                                                src={img.url}
+                                                alt={img.altText}
+                                                className="h-[200px] object-cover rounded"
+                                            />
+                                        </div>
+                                    </SwiperSlide>
                                 ))}
                             </Swiper>
                         </div>
                     </div>
-                )}
+                }
             </div>
 
             <div className="flex justify-between my-10 items-stretch">
 
                 {/* Things to do section*/}
                 <div className="border-2 rounded-xl p-4 bg-white w-[48%] flex flex-col">
-                    {loading.thingsToDo ? (
-                        <p>{loading.thingsToDo}</p>
-                    ) : errors.thingsToDo ? (
-                        <p className="text-red-500 text-center">{errors.thingsToDo}</p>
-                    ) : (
+                    {loading.get10ThingsToDo && <p className="text-center">{loading.get10ThingsToDo}</p>}
+                    {apiErrors.get10ThingsToDo && <p className="text-red-500 text-center">{apiErrors.get10ThingsToDo}</p>}
+                    {parkData.thingsToDo &&
                         <div className="flex flex-col h-full">
                             <p className="font-bold text-3xl mb-4 text-center">Things To Do</p>
                             <Swiper
@@ -183,23 +176,21 @@ export const ParkInformation = () => {
                                 ))}
                             </Swiper>
                         </div>
-                    )}
+                    }
                 </div>
 
                 {/* News releases section */}
                 <div className="border-2 rounded-xl p-4 bg-white w-[48%] flex flex-col">
-                    {loading.newsReleases ? (
-                        <p>{loading.newsReleases}</p>
-                    ) : errors.newsReleases ? (
-                        <p className="text-red-500 text-center">{errors.newsReleases}</p>
-                    ) : (
+                    {loading.get10NewsReleases && <p className="text-center">{loading.get10NewsReleases}</p>}
+                    {apiErrors.get10NewsReleases && <p className="text-red-500 text-center">{apiErrors.get10NewsReleases}</p>}
+                    {parkData.newsReleases &&
                         <div className="flex flex-col h-full">
                             <p className="font-bold text-3xl mb-4 text-center">News Releases</p>
                             <Swiper
                                 slidesPerView={1}
                                 spaceBetween={20}
                                 navigation={true}
-                                pagination={{ clickable: true }}
+                                pagination={{clickable: true}}
                                 autoplay={{
                                     delay: 5000,
                                     disableOnInteraction: false,
@@ -224,18 +215,16 @@ export const ParkInformation = () => {
                                 ))}
                             </Swiper>
                         </div>
-                    )}
+                    }
                 </div>
 
             </div>
 
             {/* Campsites section */}
             <div className="border-2 border-brandDarkBrown w-full rounded-xl p-4 bg-white flex flex-col">
-                {loading.campsites ? (
-                    <p>{loading.campsites}</p>
-                ) : errors.campsites ? (
-                    <p className="text-red-500 text-center">{errors.campsites}</p>
-                ) : (
+                {loading.getCampstites && <p className="text-center">{loading.getCampstites}</p>}
+                {apiErrors.getCampsites && <p className="text-red-500 text-center">{apiErrors.getCampsites}</p>}
+                {parkData.campsites &&
                     <div className="flex flex-col">
                         <p className="font-bold text-3xl mb-4 text-center">Campsites</p>
                         <Swiper
@@ -243,7 +232,7 @@ export const ParkInformation = () => {
                             spaceBetween={20}
                             autoHeight={true}
                             navigation={true}
-                            pagination={{ clickable: true }}
+                            pagination={{clickable: true}}
                             autoplay={{
                                 delay: 5000,
                                 disableOnInteraction: false,
@@ -280,7 +269,7 @@ export const ParkInformation = () => {
                             ))}
                         </Swiper>
                     </div>
-                )}
+                }
             </div>
 
         </div>
