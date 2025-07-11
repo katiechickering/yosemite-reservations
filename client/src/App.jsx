@@ -1,15 +1,15 @@
 import './App.css'
 import {Routes, Route} from "react-router-dom"
 import {Header} from "./components/Header"
-import {Home} from "./components/Home"
-import {ReservationForm} from "./components/ReservationForm"
-import {ViewReservation} from "./components/ViewReservation"
+import {Home} from "./views/Homepage"
+import {ReservationForm} from "./views/ReservationForm"
+import {ViewReservation} from "./views/ViewReservation"
 import { useState } from 'react'
-import { ParkInformation } from './components/ParkInformation'
+import { ParkInformation } from './views/ParkInformation'
 import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-import { LoginForm } from "./components/LoginForm"
-import { RegistrationForm } from "./components/RegistrationForm"
+import { LoginForm } from "./views/LoginForm"
+import { RegistrationForm } from "./views/RegistrationForm"
 
 function App() {
 

@@ -1,7 +1,7 @@
 import { login } from "../services/user.service"
 import { useNavigate } from "react-router-dom"
 import { useLogin } from '../context/UserContext'
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { toast } from "react-toastify"
 
 export const LoginForm = () => {
