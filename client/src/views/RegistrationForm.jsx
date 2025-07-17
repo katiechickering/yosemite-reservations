@@ -31,7 +31,7 @@ export const RegistrationForm = () => {
         const validations = {
             userName: () => false,
             password: value => {
-                if (value.length < 8) return "Passwords must be at least eight characters long."
+                if (value.length < 8) return "Password must be at least 8 characters long."
                 else if (value != formData.confirmPassword) return "Passwords must match."
                 else {
                     setFormErrors(prev => ({...prev, confirmPassword: false}))
@@ -39,7 +39,7 @@ export const RegistrationForm = () => {
                 }
             },
             confirmPassword: value => {
-                if (value.length < 8) return "Passwords must be at least eight characters long."
+                if (value.length < 8) return "Password must be at least 8 characters long."
                 else if (value != formData.password) return "Passwords must match."
                 else {
                     setFormErrors(prev => ({...prev, password: false}))
