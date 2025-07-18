@@ -53,7 +53,7 @@ export const RegistrationForm = () => {
     // Check for errors before submitting form
     const isReadyToSubmit = () => {
         for (let key in formErrors){
-            if (formErrors[key] != false) {
+            if (formErrors[key] != false || formData[key] === "") {
                 return false
             }
         }
