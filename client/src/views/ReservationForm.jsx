@@ -119,7 +119,7 @@ export const ReservationForm = ({setHeaderInfo}) => {
     // Check for errors before submitting form
     const isReadyToSubmit = () => {
         for (let key in formErrors){
-            if (formErrors[key] != false || formData[key] == "") {
+            if (formErrors[key] != false || formData[key] === "") {
                 return false
             }
         }
