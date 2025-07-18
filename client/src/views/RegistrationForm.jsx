@@ -66,8 +66,8 @@ export const RegistrationForm = () => {
             return await checkUserName(userName)
         } catch (error) {
             console.log("checkUserName error:", error)
-            setApiErrors(prev => ({...prev, checkUserName: "Unable to validate user name."}))
-            toast.error("Unable to validate user name.")
+            setApiErrors(prev => ({...prev, checkUserName: "Unable to validate username."}))
+            toast.error("Unable to validate username.")
             return true
         }
     }
@@ -84,7 +84,7 @@ export const RegistrationForm = () => {
         password = password.value
         const exists = await userNameExists(userName)
         if (exists) {
-            return toast.error("User name already exists or could not be validated.")
+            return toast.error("Username already exists or could not be validated.")
         }
         else {
             register({userName, password, confirmPassword})
