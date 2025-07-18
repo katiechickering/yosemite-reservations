@@ -88,7 +88,7 @@ export const RegistrationForm = () => {
         }
         else {
             register({userName, password, confirmPassword})
-                .then( ()=>{ 
+                .then( () => { 
                     login()
                     toast.success("Account created successfully!")
                     navigate('/') 
@@ -97,8 +97,7 @@ export const RegistrationForm = () => {
                     console.log("register error:", error)
                     setApiErrors(prev => ({...prev, register: "Unable to create account."}))
                     toast.error("Unable to create account.")
-                }
-            )
+                })
         }
     }
 

@@ -26,9 +26,9 @@ export const logout = async () => {
     } catch( error ){ throw error }
 }
 
-export const getProfile = async () => {
+export const getCurrentUser = async () => {
     try {
-        const RES = await USER_INSTANCE.get( '/profile' )
+        const RES = await USER_INSTANCE.get( '/currentUser' )
         return RES.data
     } catch( error ){ throw error }
 }

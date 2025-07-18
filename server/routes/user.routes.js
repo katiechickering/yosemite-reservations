@@ -1,6 +1,6 @@
 import { Router } from "express"
 import { protect } from "../middleware/authMiddleware.js"
-import { checkUserName, getUserProfile, getUsers, loginUser, logOutUser, registerUser } from "../controllers/user.controller.js"
+import { checkUserName, getCurrentUser, getUsers, loginUser, logOutUser, registerUser } from "../controllers/user.controller.js"
 
 const userRouter = Router()
 
@@ -8,8 +8,8 @@ userRouter.route('/')
     .get( protect, getUsers )
     .post( registerUser )
 
-userRouter.route('/profile')
-    .get( protect, getUserProfile )
+userRouter.route('/currentUser')
+    .get( protect, getCurrentUser )
 
 userRouter.route('/login')
     .post( loginUser )

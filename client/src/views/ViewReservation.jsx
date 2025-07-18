@@ -4,7 +4,7 @@ import { getReservationById, deleteReservationById } from "../services/reservati
 import { formatDate, formatString } from "../utils/FormatFunctions"
 import { toast } from "react-toastify"
 import { useLogin } from '../context/UserContext'
-import { getProfile } from "../services/user.service"
+import { getCurrentUser } from "../services/user.service"
 
 export const ViewReservation = ({setHeaderInfo}) => {
 
@@ -23,11 +23,11 @@ export const ViewReservation = ({setHeaderInfo}) => {
             navigate('/login')
         }
         else {
-            getProfile()
+            getCurrentUser()
             .then(res => setCurrentUser(res))
             .catch(error => {
                 console.log("getProfile error:", error)
-                setApiErrors(prev => ({...prev, getProfile: "Unable to load current user."}))
+                setApiErrors(prev => ({...prev, getCurrentUser: "Unable to load current user."}))
                 toast.error("Unable to load current user.")
             })
             getReservationById(id)
@@ -67,7 +67,7 @@ export const ViewReservation = ({setHeaderInfo}) => {
             <div className="flex flex-col items-center border-2 border-brandBrown bg-brandLightestGreen py-5 px-10 rounded">
                 {loading.getReservationById && <p className="text-center">{loading.getReservationById}</p>}
                 {apiErrors.getReservationById && <p className="text-red-500 text-center">{apiErrors.getReservationById}</p>}
-                {apiErrors.getProfile && <p className="text-red-500 text-center">{apiErrors.getProfile}</p>}
+                {apiErrors.getCurrentUser && <p className="text-red-500 text-center">{apiErrors.getCurrentUser}</p>}
                 <p className="text-3xl">{reservation.firstName} {reservation.lastName}</p>
                 <p className="mb-5">Username: @{reservation.user?.userName}</p>
                 <p className="m-3">{reservation.campsite} Campsite</p>

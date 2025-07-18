@@ -40,8 +40,8 @@ export const logOutUser = async(req, res) => {
     res.status(200).json({message: 'Logged out successfully.'})
 }
 
-// Read One
-export const getUserProfile = async (req, res) => {
+// Get logged in user
+export const getCurrentUser = async (req, res) => {
     try {
         const USER = await User.findById(req.user._id).select(`-password`)
         if (!USER) {

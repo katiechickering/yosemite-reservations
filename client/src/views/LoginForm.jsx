@@ -13,14 +13,14 @@ export const LoginForm = () => {
         e.preventDefault()
         const { userName, password } = e.target
         login( { userName: userName.value, password: password.value } )
-            .then( ()=> {
+            .then( () => {
                 loginUser()
                 toast.success("Login successful!")
                 navigate('/')  
-            } )
+            })
             .catch( error => {
                 console.log("login error:", error)
-                setApiErrors(prev => ({...prev, loginRequest: "Unable to login."}))
+                setApiErrors(prev => ({...prev, login: "Unable to login."}))
                 toast.error("Unable to login.")
             })
     }
@@ -60,7 +60,7 @@ export const LoginForm = () => {
                         />
                 </div>
 
-                {apiErrors.loginRequest && <p className="text-red-500 text-center mb-5">{apiErrors.loginRequest}</p>}
+                {apiErrors.login && <p className="text-red-500 text-center mb-5">{apiErrors.login}</p>}
                 <div className="flex justify-center w-full">
                     <button type="submit" className="bg-brandGreen hover:bg-brandBrown">Login</button>
                 </div>
