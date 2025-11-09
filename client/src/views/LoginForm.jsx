@@ -1,13 +1,25 @@
 import { login } from "../services/user.service"
 import { useNavigate } from "react-router-dom"
 import { useLogin } from '../context/UserContext'
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
+import { pingServer } from "../services/ping.service"
 
 export const LoginForm = () => {
     const navigate = useNavigate()
     const { login:loginUser } = useLogin()
     const [ apiErrors, setApiErrors ] = useState({})
+
+    // Wake the backend free server
+    useEffect(() => {
+        pingServer()
+            .then(res => {setServerIsLoaded(true)})
+            .catch(error => {
+                console.log("pingServer error", error)
+                toast.error("Unable to load server")
+                setApiErrors(prev => ({...prev, pingServer: "Unable to load server."}))
+            })
+    }, [])
 
     const handleSubmit = e => {
         e.preventDefault()
@@ -33,6 +45,19 @@ export const LoginForm = () => {
                     Welcome to the Yosemite Reservations app! Don't have an account yet?
                     Click the Register button above to sign up.
                 </p>
+
+                {serverIsLoaded
+                    ?
+                        <p className="text-center text-green-500 mt-2">
+                            Server is ready to go!
+                        </p>
+                    :
+                        <p className="text-center text-red-500 mt-2">
+                            Please wait 20-40 seconds for the server to wake up... server loading...
+                        </p>
+                }
+
+                {apiErrors.pingServer && <p className="text-red-500 text-center mt-2">{apiErrors.pingServer}</p>}
             </div>
 
             <form onSubmit={handleSubmit} className="border-2 border-brandBrown bg-brandLightestGreen p-10 rounded">
