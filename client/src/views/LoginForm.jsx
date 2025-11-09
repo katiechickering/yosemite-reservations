@@ -9,6 +9,7 @@ export const LoginForm = () => {
     const navigate = useNavigate()
     const { login:loginUser } = useLogin()
     const [ apiErrors, setApiErrors ] = useState({})
+    const [serverIsLoaded, setServerIsLoaded] = useState(false)
 
     // Wake the backend free server
     useEffect(() => {
