@@ -5,6 +5,7 @@ Check out my deployed application [HERE](https://yosemite-reservations.vercel.ap
 
 ## 🌟 Highlights
 
+- Register an account to enter the app
 - Reserve your spot at one of Yosemite's beautiful campsites
 - Search the reservations page by campsite
 - Edit, view or delete your reservations as needed
@@ -13,7 +14,7 @@ Check out my deployed application [HERE](https://yosemite-reservations.vercel.ap
 
 ## ℹ️ Overview
 
-This project was built with a Node.js and Express backend and a React frontend styled with Tailwind CSS. Created with an MVC structure, this app uses MongoDB for the model, an Express API as the controller, and React for the view. It also integrates data from the National Park Service public API. The reservation feature provides full CRUD functionality. I implemented login and registration using JSON Web Tokens, stored in browser cookies for authentication. I created this app to showcase my expertise in the MERN stack, as well as my love for the outdoors! I also created the Park Information tab to display my ability in working with external APIs and modern frontend styling.
+This project was built with a Node.js and Express backend and a React frontend styled with Tailwind CSS. Created with an MVC structure, this app uses MongoDB for the model, an Express API as the controller, and React for the view. It also integrates data from the National Park Service public API. The reservation feature provides full CRUD functionality. I implemented login and registration using JSON Web Tokens stored in browser cookies for authentication. I created this app to showcase my expertise in the MERN stack, as well as my love for the outdoors! I also created the Park Information tab to display my ability in working with external APIs and modern frontend styling.
 
 
 ## 🚀 Deployment
