@@ -1,5 +1,7 @@
 # 🏕️ Yosemite Campsite Reservations
 
+Check out my deployed application [HERE](https://yosemite-reservations.vercel.app/)
+
 
 ## 🌟 Highlights
 
@@ -11,52 +13,17 @@
 
 ## ℹ️ Overview
 
-This project was built with a Node.js and Express backend and a React frontend styled with Tailwind CSS. Created with an MVC structure, this app uses MongoDB for the model, an Express API as the controller, and React for the view. It also integrates data from the National Park Service public API. The reservation feature provides full CRUD functionality. I implemented login and registration using JSON Web Tokens, stored in browser cookies for authentication. I created this app to showcase my expertise in the MERN stack, as well as my love for the outdoors! I also coded the Park Information tab to display my ability in working with external APIs and modern frontend styling.
+This project was built with a Node.js and Express backend and a React frontend styled with Tailwind CSS. Created with an MVC structure, this app uses MongoDB for the model, an Express API as the controller, and React for the view. It also integrates data from the National Park Service public API. The reservation feature provides full CRUD functionality. I implemented login and registration using JSON Web Tokens, stored in browser cookies for authentication. I created this app to showcase my expertise in the MERN stack, as well as my love for the outdoors! I also created the Park Information tab to display my ability in working with external APIs and modern frontend styling.
+
+
+## 🚀 Deployment
+
+To deploy my application, I used Render for the backend server and Vercel for the frontend React application. Both services are connected to my GitHub monorepo and automatically update whenever changes are pushed to the repository. Render routes to my `server` folder, while Vercel routes to my `client` folder. I have included .env.example files in both my `client` and `server` folders to show how my environment variables are set up. To host my database, I used MongoDB Atlas.
 
 
 ## ✍️ Authors
 
 Katie Chickering - https://github.com/katiechickering
-
-
-## 🛜 Deployment
-
-[Click here to view my deployed app!](main.d27jn0472fbh8c.amplifyapp.com)
-
-To deploy my application, I used AWS App Runner for the backend API, and AWS Amplify for the frontend. Both services are connected to my GitHub monorepo and automatically update whenever changes are pushed to the repository. Environment variables were configured through the App Runner and Amplify interfaces. App Runner routes to my `server` folder, while Amplify routes to my `client` folder. To host my database, I used MongoDB Atlas.
-
-
-## ⬇️ Local Installation
-
-Open two terminals and route to the `server` folder and `client` folder respectively.
-
-Run the command below in the `server` terminal:
-```bash
-npm install
-```
-
-Run the command below in the `client` terminal:
-```bash
-npm install
-```
-
-Then, create a `.env` file in both the `server` folder and `client` folder. Follow the instructions in the `.env.example` files to set up your environment variables.
-
-
-## 🚀 Local Usage
-
-First, run the command below in the `server` terminal:
-```bash
-npm start
-```
-
-Second, run the commands below in the `client` terminal:
-```bash
-npm run build
-npm run preview
-```
-
-Copy and paste http://localhost:4173/ into your browser to view the application!
 
 
 ## 💭 Feedback and Contributing
