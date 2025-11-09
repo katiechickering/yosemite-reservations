@@ -41,8 +41,8 @@ export const LoginForm = () => {
     return(
         <div className="backgroundLayout items-center flex flex-col">
 
-            <div className="w-1/2">
-                <p className="text-center text-xl font-bold mb-8">
+            <div className="w-1/2 mb-8">
+                <p className="text-center text-xl font-bold">
                     Welcome to the Yosemite Reservations app! Don't have an account yet?
                     Click the Register button above to sign up.
                 </p>
