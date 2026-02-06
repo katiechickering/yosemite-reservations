@@ -5,13 +5,13 @@ Check out my deployed application [HERE](https://yosemite-reservations.vercel.ap
 
 ## 🛠️ Technologies Used
 
-- Core Stack: Vite, React, Node.js + Express, MongoDB
-- Languages: Javascript, XML
-- TailWind: Front-end styling
-- National Park Service: Public API
-- Vercel: Front-end website deployment
-- Render: Backend server deployment
-- Dev Tools: VS Code, GitHub
+- **Core Stack:** Vite, React, Node.js + Express, MongoDB
+- **Languages:** Javascript, XML
+- **TailWind:** Front-end styling
+- **National Park Service:** Public API
+- **Vercel:** Front-end website deployment
+- **Render:** Backend server deployment
+- **Dev Tools:** VS Code, GitHub
 
 
 ## 🌟 Highlights
