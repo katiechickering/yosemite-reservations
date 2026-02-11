@@ -11,7 +11,7 @@ Check out my deployed application [HERE](https://yosemite-reservations.vercel.ap
 - **National Park Service:** Public API
 - **Vercel:** Front-end website deployment
 - **Render:** Backend server deployment
-- **GitHub:** Version control & collaboration
+- **GitHub:** Version control
 
 
 ## 🌟 Highlights
