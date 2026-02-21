@@ -1,6 +1,20 @@
-import {model, Schema} from "mongoose"
+import { model, Schema, Document, Types } from "mongoose";
 
-const ReservationSchema = new Schema(
+export interface IReservation extends Document {
+    firstName: string;
+    lastName: string;
+    campsite: string;
+    date: Date;
+    lengthOfStay: number;
+    partySize: number;
+    hasPets: boolean;
+    hasRV: boolean;
+    user: Types.ObjectId;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+const ReservationSchema = new Schema<IReservation>(
     {
         firstName: {
             type: String,
@@ -25,22 +39,22 @@ const ReservationSchema = new Schema(
         },
         date: {
             type: Date,
-            required: [true, "Date is reqired."],
+            required: [true, "Date is required."],
             validate: [
                 {
-                    validator: v => {
-                    let today = new Date()
-                    today.setHours(0, 0, 0, 0)
-                    return v >= today
+                    validator: (v: Date) => {
+                        let today = new Date();
+                        today.setHours(0, 0, 0, 0);
+                        return v >= today;
                     },
                     message: "Your reservation date must not be in the past."
                 },
                 {
-                    validator: v => {
-                        let oneYearFromToday = new Date()
-                        oneYearFromToday.setFullYear(oneYearFromToday.getFullYear() + 1)
-                        oneYearFromToday.setHours(0, 0, 0, 0)
-                        return v <= oneYearFromToday
+                    validator: (v: Date) => {
+                        let oneYearFromToday = new Date();
+                        oneYearFromToday.setFullYear(oneYearFromToday.getFullYear() + 1);
+                        oneYearFromToday.setHours(0, 0, 0, 0);
+                        return v <= oneYearFromToday;
                     },
                     message: "Your reservation cannot be more than 1 year in advance."
                 },
@@ -72,8 +86,8 @@ const ReservationSchema = new Schema(
             required: true,
         }
     },
-    {timestamps: true}
-)
+    { timestamps: true }
+);
 
-const Reservation = model("Reservation", ReservationSchema)
-export default Reservation
+const Reservation = model<IReservation>("Reservation", ReservationSchema);
+export default Reservation;
