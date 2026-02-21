@@ -18,6 +18,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://yosemite-reservations.vercel.app'),
   
   title: "Yosemite Reservations",
+  authors: [{ name: "Katie Chickering" }],
   description: "Book and manage your Yosemite National Park adventure with ease.",
   
   icons: {
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
     url: '/',
     title: 'Yosemite Reservations',
     description: 'Explore Yosemite and secure your spot in the heart of the Sierras.',
-    siteName: 'Yosemite Reservations',
+    siteName: 'Katie Chickering',
     images: [
       {
         url: '/YosemitePreview.png',
