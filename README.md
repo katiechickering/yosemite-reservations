@@ -6,7 +6,7 @@ Check out my deployed application [HERE](https://yosemite-reservations.vercel.ap
 ## 🛠️ Technologies Used
 
 - **Core Stack:** Next.js, React, Node.js + Express, MongoDB
-- **Languages:** Typescript, Javascript, TSX
+- **Languages:** Typescript, TSX
 - **TailWindCSS:** Front-end styling
 - **National Park Service:** Public API
 - **Vercel:** Front-end website deployment
