@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import "@/globals.css";
 import { Header } from "@/components/Header";
 import "react-toastify/dist/ReactToastify.css";
-import Image from "next/image";
 import ToastProvider from "@/components/ToastProvider";
 import { UserContextProvider } from "@/context/UserContext";
 import { UIProvider } from "@/context/UIContext"
@@ -15,7 +14,6 @@ export const viewport: Viewport = {
   themeColor: '#2D5A27',
 };
 
-// 2. Metadata Export
 export const metadata: Metadata = {
   metadataBase: new URL('https://yosemite-reservations.vercel.app'),
   
@@ -34,7 +32,7 @@ export const metadata: Metadata = {
     siteName: 'Yosemite Reservations',
     images: [
       {
-        url: '/YosemiteBackground.png',
+        url: '/YosemitePreview.png',
         width: 1200, 
         height: 800, 
         alt: 'Yosemite National Park Landscape',
