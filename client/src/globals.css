@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+@import 'swiper/css';
+@import 'swiper/css/pagination';
+@import 'swiper/css/navigation';
+
+@theme {
+  --color-brand-light-green: #dde5b6;
+  --color-brand-lightest-green: #f0ead2;
+  --color-brand-green: #adc178;
+  --color-brand-brown: #a98467;
+  --color-brand-dark-brown: #6c584c;
+}
+
+@layer base {
+  html {
+    height: 100%;
+  }
+  body {
+    @apply font-serif text-brand-dark-brown antialiased flex flex-col overflow-x-hidden min-h-full;
+    margin: 0;
+  }
+  a, button, select {
+    @apply bg-white hover:bg-brand-lightest-green border border-brand-brown rounded shadow py-2 text-center;
+  }
+  a, button {
+    @apply px-4;
+  }
+  input {
+    @apply bg-white rounded border border-brand-brown ml-2 px-2;
+  }
+}
+
+@layer components {
+  .background-layout {
+    @apply flex flex-col p-8 flex-1 w-full min-h-screen;
+  }
+  .error {
+    @apply border-red-500 border-[3px];
+  }
+  .green-button {
+    @apply bg-brand-green hover:bg-brand-light-green;
+  }
+}
+
+/* 3. Swiper Customizations */
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  color: #adc178;
+  font-size: 3rem;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.swiper-button-next:hover::after,
+.swiper-button-prev:hover::after {
+  color: #a98467;
+}
+
+.swiper {
+  transition: height 300ms ease;
+}
