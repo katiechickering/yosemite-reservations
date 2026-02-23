@@ -4,11 +4,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useLogin } from '@/context/UserContext';
-import { logout } from '@/services/user.service'; // Update your service path
+import { logout } from '@/services/user.service';
 import { toast } from "react-toastify";
 import { useUI } from "@/context/UIContext";
+import yosemiteIcon from '@/app/icon.png'
 
-// Define the type for your prop
 interface HeaderProps {
     headerInfo?: {
         firstName?: string;
@@ -22,14 +22,12 @@ export const Header = () => {
     const { headerInfo } = useUI();
     const { isLoggedIn, logout: userLogout } = useLogin();
 
-    // Logic for dynamic text/links
     let headerText = "Yosemite Reservations";
     let route1 = "/";
     let linkText1 = "View All Reservations";
     let route2 = "/parkinfo";
     let linkText2 = "Park Information";
 
-    // Matching logic (Updated for Next.js pathnames)
     if (pathname === "/") {
         headerText = "Yosemite Reservations";
         route1 = "/reservation/add";
@@ -67,7 +65,7 @@ export const Header = () => {
             <div className="flex items-center h-full">
                 <Link href="/" className="h-[100px] bg-transparent border-none p-0 shadow-none relative w-[100px]">
                     <Image
-                        src="/YosemiteIcon.png" 
+                        src={yosemiteIcon}
                         alt="yosemite-icon"
                         fill
                         className="object-contain"

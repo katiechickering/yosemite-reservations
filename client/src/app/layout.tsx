@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import "@/globals.css";
+import "./globals.css";
 import { Header } from "@/components/Header";
 import "react-toastify/dist/ReactToastify.css";
 import ToastProvider from "@/components/ToastProvider";
@@ -20,11 +20,6 @@ export const metadata: Metadata = {
   title: "Yosemite Reservations",
   authors: [{ name: "Katie Chickering" }],
   description: "Book and manage your Yosemite National Park adventure with ease.",
-  
-  icons: {
-    icon: '/YosemiteIcon.png',
-  },
-
   openGraph: {
     type: 'website',
     url: '/',
