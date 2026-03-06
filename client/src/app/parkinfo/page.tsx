@@ -10,21 +10,26 @@ import {
     getCampsites, 
     getParkInfo 
 } from "@/services/nps.service";
-
 import { ParkInfoSection } from "@/components/ParkInformation/ParkInfoSection";
 import { ThingsToDo } from "@/components/ParkInformation/ThingsToDo";
 import { NewsReleases } from "@/components/ParkInformation/NewsReleases";
 import { Campsites } from "@/components/ParkInformation/Campsites";
+import { NPSPark, NPSActivity, NPSNews, NPSCampsite } from "@/types/nps";
 
 export default function ParkInformation() {
-    const [parkData, setParkData] = useState<any>({});
-    const [loading, setLoading] = useState<any>({
-        getParkInfo: "Loading park information...",
-        get10ThingsToDo: "Loading things to do...",
-        get10NewsReleases: "Loading news releases...",
-        getCampsites: "Loading campsites..."
+    const [parkData, setParkData] = useState<{
+        parkInfo?: NPSPark;
+        thingsToDo?: NPSActivity[];
+        newsReleases?: NPSNews[];
+        campsites?: NPSCampsite[];
+    }>({});
+    const [loading, setLoading] = useState({
+        getParkInfo: "Loading park information..." as string | false,
+        get10ThingsToDo: "Loading things to do..." as string | false,
+        get10NewsReleases: "Loading news releases..." as string | false,
+        getCampsites: "Loading campsites..." as string | false
     });
-    const [apiErrors, setApiErrors] = useState<any>({});
+    const [apiErrors, setApiErrors] = useState<Record<string, string>>({})
 
     const router = useRouter();
     const { isLoggedIn } = useLogin();
@@ -35,47 +40,47 @@ export default function ParkInformation() {
         } else {
             getParkInfo()
                 .then(res => {
-                    setParkData((prev: any) => ({ ...prev, parkInfo: res }));
+                    setParkData((prev) => ({ ...prev, parkInfo: res }));
                 })
                 .catch(error => {
                     console.log("getParkInfo error:", error);
-                    setApiErrors((prev: any) => ({ ...prev, getParkInfo: "NPS API failed to load park information. Please try again later." }));
+                    setApiErrors((prev) => ({ ...prev, getParkInfo: "NPS API failed to load park information. Please try again later." }));
                     toast.error("NPS API failed to load park information. Please try again later.");
                 })
-                .finally(() => setLoading((prev: any) => ({ ...prev, getParkInfo: false })));
+                .finally(() => setLoading((prev) => ({ ...prev, getParkInfo: false })));
 
             get10ThingsToDo()
                 .then(res => {
-                    setParkData((prev: any) => ({ ...prev, thingsToDo: res }));
+                    setParkData((prev) => ({ ...prev, thingsToDo: res }));
                 })
                 .catch(error => {
                     console.log("get10ThingsToDo error:", error);
-                    setApiErrors((prev: any) => ({ ...prev, get10ThingsToDo: "NPS API failed to load things to do. Please try again later." }));
+                    setApiErrors((prev) => ({ ...prev, get10ThingsToDo: "NPS API failed to load things to do. Please try again later." }));
                     toast.error("NPS API failed to load things to do. Please try again later.");
                 })
-                .finally(() => setLoading((prev: any) => ({ ...prev, get10ThingsToDo: false })));
+                .finally(() => setLoading((prev) => ({ ...prev, get10ThingsToDo: false })));
 
             get10NewsReleases()
                 .then(res => {
-                    setParkData((prev: any) => ({ ...prev, newsReleases: res }));
+                    setParkData((prev) => ({ ...prev, newsReleases: res }));
                 })
                 .catch(error => {
                     console.log("get10NewsReleases error:", error);
-                    setApiErrors((prev: any) => ({ ...prev, get10NewsReleases: "NPS API failed to news releases. Please try again later." }));
+                    setApiErrors((prev) => ({ ...prev, get10NewsReleases: "NPS API failed to news releases. Please try again later." }));
                     toast.error("NPS API failed to load news releases. Please try again later.");
                 })
-                .finally(() => setLoading((prev: any) => ({ ...prev, get10NewsReleases: false })));
+                .finally(() => setLoading((prev) => ({ ...prev, get10NewsReleases: false })));
 
             getCampsites()
                 .then(res => {
-                    setParkData((prev: any) => ({ ...prev, campsites: res }));
+                    setParkData((prev) => ({ ...prev, campsites: res }));
                 })
                 .catch(error => {
                     console.log("getCampsites error:", error);
-                    setApiErrors((prev: any) => ({ ...prev, getCampsites: "NPS API failed to load campsite information. Please try again later." }));
+                    setApiErrors((prev) => ({ ...prev, getCampsites: "NPS API failed to load campsite information. Please try again later." }));
                     toast.error("NPS API failed to load campsites. Please try again later.");
                 })
-                .finally(() => setLoading((prev: any) => ({ ...prev, getCampsites: false })));
+                .finally(() => setLoading((prev) => ({ ...prev, getCampsites: false })));
         }
     }, [isLoggedIn, router]);
 
