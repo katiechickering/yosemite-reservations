@@ -1,9 +1,8 @@
 'use client'; // Required for Swiper interactivity
 
-import React from 'react';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
-import { NPSActivity } from "@/services/nps.service";
+import { NPSActivity } from "@/types/nps";
 
 // Ensure your Swiper CSS is imported in layout.tsx or globals.css
 

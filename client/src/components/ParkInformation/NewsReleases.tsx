@@ -1,12 +1,10 @@
-'use client'; // Required for Swiper and interactivity
+'use client';
 
-import React from 'react';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
-import Link from "next/link"; 
-import Image from "next/image";
-import { NPSNews } from "@/services/nps.service";
-import dayjs from "dayjs"; // Assuming you are using dayjs from your package.json
+import Link from "next/link";
+import { NPSNews } from "@/types/nps";
+import dayjs from "dayjs";
 
 interface NewsReleasesProps {
     newsReleases: NPSNews[];

@@ -8,14 +8,7 @@ import { getAllReservations } from "@/services/reservation.service";
 import { CampsiteSearch } from "@/components/Homepage/CampsiteSearch";
 import { ReservationList } from "@/components/Homepage/ReservationList";
 import { useUI } from "@/context/UIContext";
-
-interface Reservation {
-    _id: string;
-    firstName: string;
-    lastName: string;
-    campsite: string;
-    date: string;
-}
+import { Reservation } from '@/types/reservation'
 
 export default function Home() {
     const [allReservations, setAllReservations] = useState<Reservation[]>([]);

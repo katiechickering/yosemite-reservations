@@ -2,14 +2,7 @@
 
 import Link from 'next/link';
 import { formatDate, formatString } from '@/utils/format';
-
-interface Reservation {
-    _id: string;
-    firstName: string;
-    lastName: string;
-    campsite: string;
-    date: string;
-}
+import { Reservation } from '@/types/reservation'
 
 interface ReservationListProps {
     loading: string | boolean;

@@ -1,11 +1,9 @@
 'use client';
 
-import React from 'react';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import Link from "next/link";
-import Image from "next/image";
-import { NPSCampsite } from "@/services/nps.service";
+import { NPSCampsite } from "@/types/nps";
 
 interface CampsitesProps {
     campsites: NPSCampsite[];

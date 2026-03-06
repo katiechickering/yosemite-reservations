@@ -9,8 +9,8 @@ import { formatDate, formatString } from "@/utils/format";
 import { toast } from "react-toastify";
 import { useLogin } from '@/context/UserContext';
 import { useUI } from '@/context/UIContext';
-import type { Reservation } from "@/services/reservation.service"
-import type { User } from "@/services/user.service";
+import type { Reservation } from "@/types/reservation"
+import type { User } from "@/types/user";
 
 export default function ViewReservation() {
     const [reservation, setReservation] = useState<Reservation | null>(null);

@@ -86,6 +86,12 @@ export default function RegistrationForm() {
             <form onSubmit={handleSubmit} className="border-2 border-brand-brown bg-brand-lightest-green p-10 rounded-2xl shadow-xl w-full max-w-md">
                 <h1 className="text-center text-4xl mb-8 font-serif text-brand-dark-brown">Register</h1>
 
+                {apiErrors.register && (
+                    <p className="text-red-500 text-center mb-4">
+                        {apiErrors.register}
+                    </p>
+                )}
+
                 <div className="flex flex-col mb-5">
                     <label htmlFor="userName" className="mb-1 font-bold">Username:</label>
                     <input

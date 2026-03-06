@@ -1,10 +1,9 @@
 'use client';
 
-import React from 'react';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import Link from "next/link";
-import { NPSPark } from "@/services/nps.service";
+import { NPSPark } from "@/types/nps";
 
 interface ParkInfoProps {
     parkInfo: NPSPark;

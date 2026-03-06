@@ -49,7 +49,7 @@ export const ReservationForm = () => {
                     setHeaderInfo(res);
                 })
                 .catch(() => {
-                    setApiError("getReservationById", "Unable to load reservation details.");
+                    setApiErrors(prev => ({ ...prev, getReservationById: "Unable to load reservation details." }));
                     toast.error("Unable to load reservation details.");
                 })
                 .finally(() => setLoading(false));
@@ -59,10 +59,6 @@ export const ReservationForm = () => {
             setHeaderInfo({});
         }
     }, [id, isLoggedIn, router, setHeaderInfo]);
-
-    const setApiError = (key: string, msg: string) => {
-        setApiErrors(prev => ({ ...prev, [key]: msg }));
-    };
 
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value, type } = e.target;
@@ -122,6 +118,7 @@ export const ReservationForm = () => {
             }
         } catch (err) {
             toast.error("Submission failed.");
+            setApiErrors(prev => ({ ...prev, submit: "Unable to submit reservation." }));
         }
     };
 
@@ -131,6 +128,17 @@ export const ReservationForm = () => {
 
             <form onSubmit={handleSubmit} className="border-2 border-brand-brown bg-brand-lightest-green p-10 rounded shadow-lg">
                 {loading && <p className="text-center italic">{loading}</p>}
+
+                {apiErrors.getReservationById && (
+                    <p className="text-red-500 text-center mb-4">
+                        {apiErrors.getReservationById}
+                    </p>
+                )}
+                {apiErrors.submit && (
+                    <p className="text-red-500 text-center mb-4">
+                        {apiErrors.submit}
+                    </p>
+                )}
                 
                 <div className="mb-5 flex flex-col">
                     <label htmlFor="firstName">First Name: </label>
