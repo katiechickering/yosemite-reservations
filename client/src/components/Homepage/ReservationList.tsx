@@ -1,10 +1,8 @@
 'use client';
 
-import React from 'react';
 import Link from 'next/link';
 import { formatDate, formatString } from '@/utils/format';
 
-// 1. Define the Reservation Interface
 interface Reservation {
     _id: string;
     firstName: string;

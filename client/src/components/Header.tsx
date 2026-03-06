@@ -9,13 +9,6 @@ import { toast } from "react-toastify";
 import { useUI } from "@/context/UIContext";
 import yosemiteIcon from '@/app/icon.png'
 
-interface HeaderProps {
-    headerInfo?: {
-        firstName?: string;
-        _id?: string;
-    };
-}
-
 export const Header = () => {
     const router = useRouter();
     const pathname = usePathname();

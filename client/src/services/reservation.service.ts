@@ -25,7 +25,10 @@ export interface Reservation {
     partySize: number;
     hasPets: boolean;
     hasRV: boolean;
-    user: string;
+    user: {
+        _id: string;
+        userName: string;
+    };
     createdAt?: string;
     updatedAt?: string;
 }

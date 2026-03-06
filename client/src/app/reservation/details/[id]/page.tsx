@@ -9,12 +9,14 @@ import { formatDate, formatString } from "@/utils/format";
 import { toast } from "react-toastify";
 import { useLogin } from '@/context/UserContext';
 import { useUI } from '@/context/UIContext';
+import type { Reservation } from "@/services/reservation.service"
+import type { User } from "@/services/user.service";
 
 export default function ViewReservation() {
-    const [reservation, setReservation] = useState<any>({});
+    const [reservation, setReservation] = useState<Reservation | null>(null);
     const [loading, setLoading] = useState(true);
-    const [apiErrors, setApiErrors] = useState<any>({});
-    const [currentUser, setCurrentUser] = useState<any>({});
+    const [apiErrors, setApiErrors] = useState<Record<string, string>>({});
+    const [currentUser, setCurrentUser] = useState<User | null>(null);
 
     const params = useParams();
     const id = params?.id as string;
@@ -27,26 +29,20 @@ export default function ViewReservation() {
             router.push('/login');
         } else {
             getCurrentUser()
-                .then(res => setCurrentUser(res))
+                .then(res => setCurrentUser(res as User))
                 .catch(error => {
                     console.error("getProfile error:", error);
-                    setApiErrors((prev: any) => ({ ...prev, getCurrentUser: "Unable to load current user." }));
+                    setApiErrors((prev) => ({ ...prev, getCurrentUser: "Unable to load current user." }));
                 });
 
             getReservationById(id)
                 .then(res => {
                     setHeaderInfo(res); 
-                    
-                    const displayData = {
-                        ...res,
-                        campsite: formatString(res.campsite),
-                        date: formatDate(res.date)
-                    };
-                    setReservation(displayData);
+                    setReservation(res);
                 })
                 .catch(error => {
                     console.error("getReservationById error:", error);
-                    setApiErrors((prev: any) => ({ ...prev, getReservationById: "Unable to load reservation details." }));
+                    setApiErrors((prev) => ({ ...prev, getReservationById: "Unable to load reservation details." }));
                     toast.error("Unable to load reservation details.");
                 })
                 .finally(() => setLoading(false));
@@ -63,10 +59,14 @@ export default function ViewReservation() {
             })
             .catch(error => {
                 console.error("deleteReservationById error:", error);
-                setApiErrors((prev: any) => ({ ...prev, deleteReservationById: "Unable to delete reservation." }));
+                setApiErrors((prev) => ({ ...prev, deleteReservationById: "Unable to delete reservation." }));
                 toast.error("Unable to delete reservation.");
             });
     };
+
+    if (!reservation) {
+        return <p className="text-center">Reservation not found</p>;
+    }
 
     return (
         <div className="flex flex-col items-center">
@@ -78,8 +78,8 @@ export default function ViewReservation() {
 
                 <p className="text-3xl font-bold text-brand-dark-brown">{reservation.firstName} {reservation.lastName}</p>
                 <p className="mb-5 text-sm">Username: @{reservation.user?.userName}</p>
-                <p className="m-3 text-lg font-medium">{reservation.campsite} Campsite</p>
-                <p className="m-3">Arrival Date: {reservation.date}</p>
+                <p className="m-3 text-lg font-medium">{formatString(reservation.campsite)} Campsite</p>
+                <p className="m-3">Arrival Date: {formatDate(reservation.date)}</p>
                 <p className="m-3">{reservation.lengthOfStay} Days</p>
                 <p className="m-3">{reservation.partySize} People</p>
 
